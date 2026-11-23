@@ -1,0 +1,26 @@
+<p id="estado-conexion" class="estado-conexion" role="status" [hidden]="conexion.texto() === null">{{ conexion.texto() }}</p>
+<header class="nav-bar">
+  <div class="nav-brand">
+    <span class="nav-dot" aria-hidden="true"></span>
+    <span>Atlas 3D</span>
+  </div>
+  <span id="estado-sw" class="sw-badge" [class.activo]="sw.estado() === 'activo'" [class.error]="sw.estado() === 'error'">
+    {{ sw.estado() === "activo" ? "Service Worker: activo" : sw.estado() === "error" ? "Service Worker: error al registrar" : "Service Worker: comprobando…" }}
+  </span>
+</header>
+<main class="contenido">
+  <section class="hero">
+    <p class="hero-eyebrow">Módulo AR · Versión Angular</p>
+    <h1>Atlas 3D de Arquitectura de Software</h1>
+    <p>Ocho patrones de arquitectura de software dibujados en 3D con Three.js: míralos, toca una pieza para leer qué hace y apóyalos sobre tu mesa con realidad aumentada. Se instala y funciona sin conexión.</p>
+  </section>
+  <section zonaVisor></section>
+  <section catalogo></section>
+  <section progreso></section>
+  <section zonaInstalar></section>
+  <section zonaDescargas></section>
+</main>
+<div overlayAr></div>
+<footer class="pie">
+  <p>Vite + Angular + TypeScript + Three.js + Workbox + WebXR · Instalable · Funciona sin conexión</p>
+</footer>

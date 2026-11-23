@@ -1,0 +1,38 @@
+<h2>Tu progreso</h2>
+<div class="progreso-fila">
+  <h3>Continuar viendo</h3>
+  <div id="recientes" class="chips">
+    @for (r of svc.recientes(); track r.modeloId) {
+      <button type="button" class="chip" (click)="abrir(r.modeloId)">{{ nombreDe(r.modeloId) }}</button>
+    } @empty {
+      <span class="chips-vacio">Aún no has visto ningún modelo.</span>
+    }
+  </div>
+</div>
+<div class="progreso-fila">
+  <h3>Tus favoritos</h3>
+  <div id="favoritos" class="chips">
+    @for (r of svc.favoritos(); track r.modeloId) {
+      <button type="button" class="chip" (click)="abrir(r.modeloId)">{{ nombreDe(r.modeloId) }}</button>
+    } @empty {
+      <span class="chips-vacio">Marca un modelo con ★ para verlo aquí.</span>
+    }
+  </div>
+</div>
+
+<div id="nota-estudio" class="nota-estudio" [hidden]="svc.seleccionado() === null">
+  <div class="nota-cabecera">
+    <h3 id="nota-titulo">Nota de estudio{{ svc.seleccionado() ? " — " + nombreDe(svc.seleccionado()!) : "" }}</h3>
+    <span id="nota-estado" class="pill" [class.desbloqueado]="svc.clave() !== null">{{ svc.clave() ? "Notas desbloqueadas" : "Notas bloqueadas" }}</span>
+  </div>
+  <form id="form-clave-atlas" class="form-clave-atlas" [hidden]="svc.clave() !== null" (submit)="desbloquear($event)">
+    <input id="input-clave-atlas" type="password" placeholder="Contraseña de tus notas" autocomplete="off" name="clave" [ngModel]="contrasena()" (ngModelChange)="contrasena.set($event)" />
+    <button type="submit" class="btn-nota">Desbloquear</button>
+  </form>
+  <textarea id="nota-texto" rows="3" placeholder="Escribe tu nota de estudio — se guarda cifrada" [disabled]="svc.clave() === null" [ngModel]="svc.textoNota()" (ngModelChange)="svc.textoNota.set($event)"></textarea>
+  <div class="nota-acciones">
+    <button id="btn-guardar-nota" type="button" class="btn-nota" [disabled]="svc.clave() === null" (click)="svc.guardarNota()">Guardar nota cifrada</button>
+    <button id="btn-bloquear-atlas" type="button" class="btn-nota secundario" [hidden]="svc.clave() === null" (click)="svc.bloquear()">Bloquear</button>
+  </div>
+  <p id="nota-mensaje" class="nota-mensaje" role="status" [attr.data-tipo]="svc.mensaje().tipo">{{ svc.mensaje().texto }}</p>
+</div>

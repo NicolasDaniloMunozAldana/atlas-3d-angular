@@ -1,0 +1,16 @@
+<div class="patron-top">
+  <span class="numero">0{{ numero() }}</span>
+  <button
+    type="button"
+    class="btn-fav"
+    [class.activo]="favorito()"
+    [attr.aria-pressed]="favorito()"
+    [attr.aria-label]="'Marcar ' + patron().nombre + ' como favorito'"
+    (click)="progresoSvc.alternarFavorito(patron().id)"
+  >{{ favorito() ? "★" : "☆" }}</button>
+</div>
+<button type="button" class="patron-abrir" (click)="abrir()">{{ patron().nombre }}</button>
+<span class="resumen-card">{{ patron().resumen }}</span>
+<span class="estado">{{ descargado() ? "✓ Ficha disponible sin conexión" : "Modelo 3D disponible · ficha descargable" }}</span>
+<span class="visita">{{ visita() }}</span>
+<button type="button" class="btn-ver3d" [attr.data-id]="patron().id" (click)="ver3D()">🧊 Ver en 3D</button>

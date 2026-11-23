@@ -1,0 +1,6 @@
+<h2>Los 8 patrones del catálogo</h2>
+<div class="catalogo-grid">
+  @for (p of patrones; track p.id; let i = $index) {
+    <article tarjeta [patron]="p" [numero]="i + 1" [destacada]="destacado === p.id"></article>
+  }
+</div>
